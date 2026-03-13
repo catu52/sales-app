@@ -16,6 +16,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']], function () {
     Route::get('sales/{id}', [\App\Http\Controllers\SalesController::class, 'show']);
     //Item routes
     Route::get('/items', [\App\Http\Controllers\ItemsController::class, 'index']);
+    Route::delete('/items/{id}', [\App\Http\Controllers\ItemsController::class, 'destroy']);
     Route::post('/products', [\App\Http\Controllers\ItemsController::class, 'storeProduct']);
     Route::post('/services', [\App\Http\Controllers\ItemsController::class, 'storeService']);
 });

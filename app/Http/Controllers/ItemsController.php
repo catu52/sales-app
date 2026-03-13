@@ -188,7 +188,7 @@ class ItemsController extends Controller
     public function destroy(int $id): \Illuminate\Http\JsonResponse
     {
         // Deleting from the base table will delete from products/services 
-        // IF your migration has ->onDelete('cascade')
+        // Following migration ->onDelete('cascade')
         $deleted = DB::table('items')->where('id', $id)->delete();
 
         if ($deleted) {

@@ -78,6 +78,14 @@ class ClientsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //Find client by ID
+        $client = \App\Models\Client::find($id);
+        if (!$client) {
+            return response()->json(['message' => 'Client not found'], 404);
+        }
+        //Delete client
+        $client->delete();
+
+        return response()->json(['message' => 'Client deleted successfully']);
     }
 }
