@@ -11,7 +11,9 @@ class ClientsController extends Controller
      */
     public function index()
     {
+        //Get all clients
         $clients = \App\Models\Client::all();
+        //Return clients as JSON
         return response()->json($clients);
     }
 
@@ -39,10 +41,13 @@ class ClientsController extends Controller
      */
     public function show(string $id)
     {
+        //Find client by ID
         $client = \App\Models\Client::find($id);
+        //Client not found
         if (!$client) {
             return response()->json(['message' => 'Client not found'], 404);
         }
+        //Return client data
         return response()->json($client);
     }
 
@@ -51,7 +56,21 @@ class ClientsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Validate request
+        $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|string|email|max:255|unique:clients,email,' . $id,
+        ]);
+
+        //Find client by ID
+        $client = \App\Models\Client::find($id);
+        if (!$client) {
+            return response()->json(['message' => 'Client not found'], 404);
+        }
+        //Update client with validated data
+        $client->update($request->only(['name', 'email']));
+
+        return response()->json($client);
     }
 
     /**

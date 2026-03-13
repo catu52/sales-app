@@ -65,7 +65,7 @@ class Product extends Item
     /**
      * Relationship: Parent Item details.
      * Each Product belongs to one Item, which contains the shared attributes.
-     * This allows us to access the common properties like name, base_price, and availability
+     * This allows us to access the common properties like name, price, and availability
      * while keeping product-specific details (like stock_quantity) in this separate table.
      * 
      * @return BelongsTo
